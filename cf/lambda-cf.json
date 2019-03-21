@@ -1,0 +1,28 @@
+{
+  "Resources": {
+    "lambdaArb1": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "other.handler",
+        "Role": "arn:aws:iam::935162543893:role/service-role/lambdaTesterRole",
+        "Runtime": "nodejs8.10",
+        "Code": {
+          "S3Bucket": "temp-arb-tester",
+          "S3Key": "lambda1.zip"
+        }
+      }
+    },
+    "lambdaArb2": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "other.handler",
+        "Role": "arn:aws:iam::935162543893:role/service-role/lambdaTesterRole",
+        "Runtime": "nodejs8.10",
+        "Code": {
+          "S3Bucket": "temp-arb-tester",
+          "S3Key": "lambda2.zip"
+        }
+      }
+    }
+  }
+}

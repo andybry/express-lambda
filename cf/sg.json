@@ -1,0 +1,175 @@
+{
+    "SecurityGroups": [
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "PrefixListIds": [], 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": []
+                }
+            ], 
+            "Description": "load-balancer-wizard-1 created on 2019-03-19T15:21:13.149+00:00", 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 80, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 80, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": [
+                        {
+                            "CidrIpv6": "::/0"
+                        }
+                    ]
+                }
+            ], 
+            "GroupName": "load-balancer-wizard-1", 
+            "VpcId": "vpc-21f2c447", 
+            "OwnerId": "935162543893", 
+            "GroupId": "sg-05603675f32def8ec"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "PrefixListIds": [], 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": []
+                }
+            ], 
+            "Description": "Security group for lambdas", 
+            "Tags": [
+                {
+                    "Value": "s3", 
+                    "Key": "aws:cloudformation:stack-name"
+                }, 
+                {
+                    "Value": "lambdaSG", 
+                    "Key": "aws:cloudformation:logical-id"
+                }, 
+                {
+                    "Value": "arn:aws:cloudformation:eu-west-1:935162543893:stack/s3/eca00ef0-4a5c-11e9-9c61-0276cc331c40", 
+                    "Key": "aws:cloudformation:stack-id"
+                }
+            ], 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 80, 
+                    "IpRanges": [], 
+                    "ToPort": 80, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": [
+                        {
+                            "CidrIpv6": "::/0"
+                        }
+                    ]
+                }
+            ], 
+            "GroupName": "s3-lambdaSG-1TLMSF8UJUP1I", 
+            "VpcId": "vpc-21f2c447", 
+            "OwnerId": "935162543893", 
+            "GroupId": "sg-0bb448f8e23050f65"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "PrefixListIds": [], 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": []
+                }
+            ], 
+            "Description": "Security group for lambdas", 
+            "Tags": [
+                {
+                    "Value": "arn:aws:cloudformation:eu-west-1:935162543893:stack/s2/30f3c700-4a5c-11e9-85d6-0a00435bc49c", 
+                    "Key": "aws:cloudformation:stack-id"
+                }, 
+                {
+                    "Value": "lambdaSG", 
+                    "Key": "aws:cloudformation:logical-id"
+                }, 
+                {
+                    "Value": "s2", 
+                    "Key": "aws:cloudformation:stack-name"
+                }
+            ], 
+            "IpPermissions": [
+                {
+                    "PrefixListIds": [], 
+                    "FromPort": 80, 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "ToPort": 80, 
+                    "IpProtocol": "tcp", 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": []
+                }
+            ], 
+            "GroupName": "s2-lambdaSG-1SFJNTBIER3OT", 
+            "VpcId": "vpc-21f2c447", 
+            "OwnerId": "935162543893", 
+            "GroupId": "sg-0e3871725248ae2e0"
+        }, 
+        {
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1", 
+                    "PrefixListIds": [], 
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ], 
+                    "UserIdGroupPairs": [], 
+                    "Ipv6Ranges": []
+                }
+            ], 
+            "Description": "default VPC security group", 
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1", 
+                    "PrefixListIds": [], 
+                    "IpRanges": [], 
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "935162543893", 
+                            "GroupId": "sg-b5743bc5"
+                        }
+                    ], 
+                    "Ipv6Ranges": []
+                }
+            ], 
+            "GroupName": "default", 
+            "VpcId": "vpc-21f2c447", 
+            "OwnerId": "935162543893", 
+            "GroupId": "sg-b5743bc5"
+        }
+    ]
+}
