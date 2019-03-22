@@ -1,70 +1,11 @@
 import aws from 'aws-sdk'
-import fs from 'fs';
+import * as s3 from './aws/s3'
+import * as lambda from './aws/lambda'
+import config from '../config'
 
-const lambdaCodeBucket = 'arb-lambda-code-bucket-2'
-const lambdaZip = 'lambda.zip'
-const lambdaName = 'arb-lambda'
-const lambdaHandler = 'index.handler'
-const lambdaRuntime = 'nodejs8.10'
-const lambdaRole = 'arn:aws:iam::935162543893:role/service-role/lambdaTesterRole'
-
-aws.config.region = 'eu-west-1'
-
-// S3
-const s3 = new aws.S3()
-
-const bucketExists = (bucket: string): Promise<boolean> => 
-s3
-  .headBucket({ Bucket: bucket })
-  .promise()
-  .then(() => true)
-  .catch(() => false)
-
-const createBucketMaybe = (bucket: string): Promise<boolean> =>
-bucketExists(bucket)
-  .then(exists => exists ? false : s3.createBucket({ Bucket: bucket }).promise().then(() => true))
-
-const uploadFile = (bucket: string, file: string): Promise<any> =>
-s3
-  .upload({Bucket: bucket, Key: file, Body: fs.createReadStream(file)})
-  .promise()
-
-
-// LAMBDA
-const lambda = new aws.Lambda()
-
-const lambdaExists = (name: string): Promise<boolean> => 
-  lambda
-    .getFunction({ FunctionName: name })
-    .promise()
-    .then(() => true)
-    .catch(() => false)
-
-
-const createOrUpdate = (name: string, bucket: string, key: string): Promise<any> =>
-  lambdaExists(name)
-    .then(exists => exists ?
-        lambda.updateFunctionCode({
-          FunctionName: name,
-          S3Bucket: bucket,
-          S3Key: key
-        }).promise() :
-        lambda.createFunction({
-          FunctionName: name,
-          Handler: lambdaHandler,
-          Runtime: lambdaRuntime,
-          Role: lambdaRole,
-          Code: {
-            S3Bucket: bucket,
-            S3Key: key
-          }
-        }).promise())
-  
-
-createBucketMaybe(lambdaCodeBucket)
-  .then(() => uploadFile(lambdaCodeBucket, lambdaZip))
-  .then(() => lambdaExists(lambdaName))
-  .then(() => createOrUpdate(lambdaName, lambdaCodeBucket, lambdaZip))
+s3.createBucketMaybe(config.bucket)
+  .then(() => s3.uploadFile(config.bucket, config.zip))
+  .then(() => lambda.createOrUpdate(config.lambda, config.bucket, config.zip))
   .then(console.log)
   .catch(console.log)
 
