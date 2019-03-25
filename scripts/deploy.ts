@@ -1,12 +1,12 @@
 import aws from 'aws-sdk'
+import config from '../config'
 import * as s3 from './aws/s3'
 import * as lambda from './aws/lambda'
-import config from '../config'
 
 s3.createBucketMaybe(config.bucket)
   .then(() => s3.uploadFile(config.bucket, config.zip))
-  .then(() => lambda.createOrUpdate(config.lambda, config.bucket, config.zip))
-  .then(console.log)
+  .then(() => lambda.createOrUpdate(config))
+  .then(() => console.log('Lambda successfully updated'))
   .catch(console.log)
 
 const elbv2 = new aws.ELBv2()

@@ -1,5 +1,5 @@
 import aws from 'aws-sdk'
-import config from '../../config'
+import { Config } from '../../config'
 
 const lambda = new aws.Lambda()
 
@@ -11,21 +11,21 @@ export const lambdaExists = (name: string): Promise<boolean> =>
     .catch(() => false)
 
 
-export const createOrUpdate = (name: string, bucket: string, key: string): Promise<any> =>
-  lambdaExists(name)
+export const createOrUpdate = (config: Config): Promise<any> =>
+  lambdaExists(config.lambda)
     .then(exists => exists ?
         lambda.updateFunctionCode({
-          FunctionName: name,
-          S3Bucket: bucket,
-          S3Key: key
+          FunctionName: config.lambda,
+          S3Bucket: config.bucket,
+          S3Key: config.zip
         }).promise() :
         lambda.createFunction({
-          FunctionName: name,
+          FunctionName: config.lambda,
           Handler: config.handler,
           Runtime: config.runtime,
           Role: config.role,
           Code: {
-            S3Bucket: bucket,
-            S3Key: key
+            S3Bucket: config.bucket,
+            S3Key: config.zip
           }
         }).promise())
